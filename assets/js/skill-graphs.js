@@ -31,9 +31,7 @@ export function initSkillGraphs() {
           ticks: { display: false }
         }
       },
-      plugins: {
-        legend: { display: false }
-      }
+      plugins: { legend: { display: false } }
     }
   });
 }
