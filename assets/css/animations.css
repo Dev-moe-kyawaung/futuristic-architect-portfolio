@@ -1,0 +1,18 @@
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(0, 243, 255, 0.35); }
+}
+
+.glow-btn {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.cinematic-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cinematic-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
