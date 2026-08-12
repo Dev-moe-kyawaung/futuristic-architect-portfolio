@@ -1,452 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Performance Benchmarks — Moe Kyaw</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/animations.css" />
-  <link rel="stylesheet" href="assets/css/responsive.css" />
-</head>
-<body>
-  <canvas id="particleCanvas" class="particle-canvas"></canvas>
-
-  <nav class="nav-glass glass-panel floating-ui">
-    <a class="nav-link" href="index.html" data-i18n="navHome">Home</a>
-    <a class="nav-link" href="page2.html" data-i18n="navSkills">Skills</a>
-    <a class="nav-link" href="page3.html">Roadmap</a>
-    <a class="nav-link" href="page4.html">Compose</a>
-    <a class="nav-link" href="page5.html" data-i18n="navArchitecture">Architecture</a>
-    <a class="nav-link" href="page6.html" data-i18n="navPerformance">Performance</a>
-    <a class="nav-link" href="page7.html" data-i18n="navCICD">CI/CD</a>
-    <button id="langToggle" class="lang-toggle">🇲🇲 MM</button>
-  </nav>
-
-  <main class="container section-padding">
-    <section class="section-header cinematic-fade">
-      <h1 class="section-title" data-i18n="performanceTitle">Performance Benchmarks</h1>
-      <p class="section-subtitle">Real-world metrics from production apps: startup time, memory usage, FPS, APK size, and battery efficiency.</p>
-    </section>
-
-    <section class="glass-panel cinematic-fade" style="padding: 40px; margin-bottom: 32px;">
-      <h2 style="margin-bottom: 24px; color: var(--neon-lime);">Startup Performance</h2>
-      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px;">
-        Cold start, warm start, and hot start metrics measured with Android Vitals and custom instrumentation tests.
-      </p>
-
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value">1.2s</div>
-          <div class="stat-label">Cold Start (Target)</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">0.4s</div>
-          <div class="stat-label">Warm Start</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">0.15s</div>
-          <div class="stat-label">Hot Start</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">-35%</div>
-          <div class="stat-label">Improvement YoY</div>
-        </div>
-      </div>
-
-      <div class="bench-grid" style="margin-top: 40px;">
-        <div class="bench-card glass-panel">
-          <h3 class="bench-title">🚀 Cold Start Breakdown</h3>
-          <div style="margin-top: 16px;">
-            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-              <span style="color: var(--text-secondary);">Process Start</span>
-              <span>320ms</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 27%;"></div>
-            </div>
-          </div>
-
-          <div style="margin-top: 16px;">
-            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-              <span style="color: var(--text-secondary);">Application.onCreate()</span>
-              <span>480ms</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 40%;"></div>
-            </div>
-          </div>
-
-          <div style="margin-top: 16px;">
-            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-              <span style="color: var(--text-secondary);">First Activity</span>
-              <span>400ms</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 33%;"></div>
-            </div>
-          </div>
-
-          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--glass-border);">
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 600;">
-              <span>Total</span>
-              <span style="color: var(--neon-lime);">1.2s</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bench-card glass-panel">
-          <h3 class="bench-title">⚡ Optimization Techniques</h3>
-          <ul style="margin-top: 16px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
-            <li>✓ Lazy initialization with App Startup library</li>
-            <li>✓ Baseline profiles for AOT compilation</li>
-            <li>✓ Deferred non-critical work (analytics, crash reporting)</li>
-            <li>✓ Minimal Application class logic</li>
-            <li>✓ Pre-warmed DI containers</li>
-            <li>✓ Splash screen API for perceived performance</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="code-block" style="margin-top: 32px;">
-<pre>// Baseline Profile for critical paths
-// /config/baseline-prof.txt
-HSPLcom/example/app/MainActivity;->onCreate(Landroid/os/Bundle;)V
-HSPLcom/example/app/di/AppModule;->provideRetrofit()Lretrofit2/Retrofit;
-HSPLcom/example/app/ui/theme/ThemeKt;->AppTheme(Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
-HSPLcom/example/app/data/database/AppDatabase;->getInstance(Landroid/content/Context;)Lcom/example/app/data/database/AppDatabase;
-HSPLcom/example/app/ui/components/ButtonKt;->PrimaryButton(Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
-Lcom/example/app/core/analytics/AnalyticsTracker;
-Lcom/example/app/core/network/ApiClient;
-Lcom/example/app/feature/home/HomeViewModel;
-Lcom/example/app/feature/profile/ProfileScreen;
-
-// App Startup configuration
-// /res/xml/initializers.xml
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;initializers&gt;
-  &lt;initializer 
-    android:name="com.example.app.initializer.CrashReportingInitializer"
-    android:triggerClass="com.example.app.AnalyticsApplication" /&gt;
-  &lt;initializer 
-    android:name="com.example.app.initializer.AnalyticsInitializer"
-    android:triggerClass="com.example.app.AnalyticsApplication" /&gt;
-  &lt;!-- Deferred initializers for non-critical work --&gt;
-&lt;/initializers&gt;</pre>
-      </div>
-    </section>
-
-    <section class="glass-panel cinematic-fade" style="padding: 40px; margin-bottom: 32px;">
-      <h2 style="margin-bottom: 24px; color: var(--neon-aqua);">Memory Management</h2>
-      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px;">
-        Heap profiling, leak detection with LeakCanary, and memory-efficient image loading with Coil.
-      </p>
-
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value">45MB</div>
-          <div class="stat-label">Avg Heap Usage</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">120MB</div>
-          <div class="stat-label">Peak Heap</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">0</div>
-          <div class="stat-label">Memory Leaks</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">-28%</div>
-          <div class="stat-label">GC Overhead</div>
-        </div>
-      </div>
-
-      <div class="content-grid" style="margin-top: 32px;">
-        <div class="info-card glass-panel">
-          <h3>🔍 LeakCanary Integration</h3>
-          <p style="margin-top: 12px;">Automated leak detection in debug builds with custom heap analyzers and watch references for critical objects.</p>
-        </div>
-
-        <div class="info-card glass-panel">
-          <h3>🖼️ Coil Image Loading</h3>
-          <p style="margin-top: 12px;">Efficient bitmap caching, automatic memory management, and lifecycle-aware image loading.</p>
-        </div>
-
-        <div class="info-card glass-panel">
-          <h3>♻️ Object Pooling</h3>
-          <p style="margin-top: 12px;">Reusable object pools for high-frequency allocations (parsers, buffers, temporary data structures).</p>
-        </div>
-
-        <div class="info-card glass-panel">
-          <h3>📊 Memory Profiling</h3>
-          <p style="margin-top: 12px;">Android Studio Profiler integration with custom heap dumps and allocation tracking.</p>
-        </div>
-      </div>
-
-      <div class="code-block" style="margin-top: 32px;">
-<pre>// Coil configuration for optimal memory usage
-// /core:ui - ImageLoaderModule.kt
-@Module
-@InstallIn(SingletonComponent::class)
-object ImageLoaderModule {
-
-  @Provides
-  @Singleton
-  fun provideImageLoader(
-    @ApplicationContext context: Context,
-    cacheFactory: MemoryCache.Factory
-  ): ImageLoader {
-    return ImageLoader.Builder(context)
-      .memoryCache {
-        MemoryCache.Builder(context)
-          .maxSizePercent(0.25) // 25% of available memory
-          .strongReferencesEnabled(true)
-          .build()
-      }
-      .diskCache {
-        DiskCache.Builder()
-          .directory(context.cacheDir.resolve("image_cache"))
-          .maxSizePercent(0.02) // 2% of storage
-          .build()
-      }
-      .respectCacheHeaders(false)
-      .allowHardware(false) // Prevent hardware bitmap issues
-      .build()
-  }
-}
-
-// WeakReference-based object pooling
-class ObjectPool&lt;T&gt;(
-  private val maxSize: Int = 50,
-  private val factory: () -> T
-) {
-  private val pool = Collections.synchronizedList(ArrayList&lt;T&gt;())
-
-  fun acquire(): T {
-    return synchronized(pool) {
-      if (pool.isNotEmpty()) {
-        pool.removeAt(pool.lastIndex)
-      } else {
-        factory()
-      }
-    }
-  }
-
-  fun release(obj: T) {
-    synchronized(pool) {
-      if (pool.size &lt; maxSize) {
-        // Reset object state before returning to pool
-        @Suppress("UNCHECKED_CAST")
-        (obj as? Resettable)?.reset()
-        pool.add(obj)
-      }
-    }
-  }
-
-  interface Resettable {
-    fun reset()
-  }
-}
-
-// Usage example
-class JsonParserPool {
-  private val pool = ObjectPool(
-    maxSize = 30,
-    factory = { GsonBuilder().create() }
-  )
-
-  fun &lt;T&gt; parse(json: String, clazz: Class&lt;T&gt;): T {
-    val parser = pool.acquire()
-    try {
-      return parser.fromJson(json, clazz)
-    } finally {
-      pool.release(parser)
-    }
-  }
-}</pre>
-      </div>
-    </section>
-
-    <section class="glass-panel cinematic-fade" style="padding: 40px; margin-bottom: 32px;">
-      <h2 style="margin-bottom: 24px; color: var(--neon-pink);">Rendering Performance</h2>
-      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px;">
-        Frame timing analysis, Compose recomposition optimization, and GPU profiling for smooth 60/120 FPS experiences.
-      </p>
-
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value">60+</div>
-          <div class="stat-label">Avg FPS</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">16ms</div>
-          <div class="stat-label">Frame Budget</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">-40%</div>
-          <div class="stat-label">Recomposition</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">0.2%</div>
-          <div class="stat-label">Jank Rate</div>
-        </div>
-      </div>
-
-      <div class="bench-grid" style="margin-top: 32px;">
-        <div class="bench-card glass-panel">
-          <h3 class="bench-title">📊 Frame Timing Distribution</h3>
-          <div style="margin-top: 20px;">
-            <div style="margin-bottom: 16px;">
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-                <span style="color: var(--neon-lime);">&lt; 16ms (60 FPS)</span>
-                <span>94.2%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 94.2%;"></div>
-              </div>
-            </div>
-
-            <div style="margin-bottom: 16px;">
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-                <span style="color: var(--neon-aqua);">16-32ms (30-60 FPS)</span>
-                <span>5.6%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 5.6%; background: linear-gradient(90deg, var(--neon-aqua), var(--neon-pink));"></div>
-              </div>
-            </div>
-
-            <div>
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
-                <span style="color: var(--neon-pink);">&gt; 32ms (Jank)</span>
-                <span>0.2%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 0.2%; background: var(--neon-pink);"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bench-card glass-panel">
-          <h3 class="bench-title">🎯 Compose Optimization</h3>
-          <ul style="margin-top: 16px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
-            <li>✓ Stable data classes with @Immutable</li>
-            <li>✓ DerivedStateOf for expensive calculations</li>
-            <li>✓ key() for dynamic lists</li>
-            <li>✓ rememberSaveable for state persistence</li>
-            <li>✓ LaunchedEffect with proper keys</li>
-            <li>✓ avoid boxing with primitive types</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="code-block" style="margin-top: 32px;">
-<pre>// Compose performance optimization patterns
-
-// 1. Stable data classes
-@Immutable
-data class UserProfile(
-  val id: String,
-  val name: String,
-  val avatarUrl: String,
-  val lastActive: Long
-)
-
-// 2. Derived state for expensive computations
-@Composable
-fun ProfileScreen(viewModel: ProfileViewModel) {
-  val uiState by viewModel.uiState.collectAsState()
-  
-  // Only recomputes when filteredList changes
-  val visibleItems = remember(uiState) {
-    derivedStateOf {
-      (uiState as? ProfileUiState.Success)?.items
-        ?.filter { it.isVisible }
-        ?.take(50) // Lazy loading
-        ?: emptyList()
-    }
-  }
-
-  LazyColumn {
-    items(
-      items = visibleItems.value,
-      key = { it.id }
-    ) { item ->
-      ProfileItem(item)
-    }
-  }
-}
-
-// 3. Optimized recomposition with keys
-@Composable
-fun DynamicList(items: List&lt;Item&gt;) {
-  items(
-    items = items,
-    key = { it.id },
-    contentType = { it.type }
-  ) { item ->
-    when (item.type) {
-      ItemType.TEXT -> TextItem(item)
-      ItemType.IMAGE -> ImageItem(item)
-      ItemType.VIDEO -> VideoItem(item)
-    }
-  }
-}
-
-// 4. Avoid unnecessary lambdas
-@Composable
-fun OptimizedButton(
-  onClick: () -> Unit,
-  modifier: Modifier = Modifier
-) {
-  // Lambda passed directly, no recreation
-  Button(onClick = onClick, modifier = modifier) {
-    Text("Click me")
-  }
-}
-
-// 5. Layout optimization
-@Composable
-fun EfficientLayout(
-  modifier: Modifier = Modifier
-) {
-  // Use Box instead of nested ConstraintLayout
-  Box(modifier = modifier) {
-    Content()
-    Overlay()
-  }
-}</pre>
-      </div>
-    </section>
-
-    <section class="glass-panel cinematic-fade" style="padding: 40px;">
-      <h2 style="margin-bottom: 24px; color: var(--neon-lime);">APK Size & Build Optimization</h2>
-      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px;">
-        App Bundle delivery, R8/ProGuard optimization, and resource shrinking for minimal download size.
-      </p>
-
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value">12MB</div>
-          <div class="stat-label">Download Size</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">28MB</div>
-          <div class="stat-label">Install Size</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">-45%</div>
-          <div class="stat-label">Reduction</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">R8 Coverage</div>
-        </div>
-      </div>
-
       <div class="content-grid" style="margin-top: 32px;">
         <div class="info-card glass-panel">
           <h3>📦 App Bundles</h3>
@@ -454,4 +5,221 @@ fun EfficientLayout(
         </div>
 
         <div class="info-card glass-panel">
-          <h3>🗜️ R8 Optimization</
+          <h3>🗜️ R8 Optimization</h3>
+          <p style="margin-top: 12px;">Full code shrinking, resource shrinking, and optimization with custom keep rules for reflection and dynamic code.</p>
+        </div>
+
+        <div class="info-card glass-panel">
+          <h3>🖼️ WebP Conversion</h3>
+          <p style="margin-top: 12px;">All PNG/JPG assets converted to WebP format with 60-80% size reduction and quality preservation.</p>
+        </div>
+
+        <div class="info-card glass-panel">
+          <h3>🎯 Vector Drawables</h3>
+          <p style="margin-top: 12px;">XML vector drawables instead of PNG icons, scalable without quality loss and minimal file size.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: 32px;">
+<pre>// build.gradle.kts - App module
+android {
+  buildTypes {
+    release {
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(
+        getDefaultProguardFile("proguard-android-optimize.txt"),
+        "proguard-rules.pro"
+      )
+    }
+  }
+
+  splits {
+    abi {
+      isEnable = true
+      reset()
+      include("arm64-v8a", "armeabi-v7a")
+      isUniversalApk = false
+    }
+    density {
+      isEnable = true
+      reset()
+      include("mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi")
+    }
+  }
+
+  packaging {
+    resources {
+      excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      excludes += "/META-INF/DEPENDENCIES"
+      excludes += "/META-INF/LICENSE*"
+      excludes += "/META-INF/NOTICE*"
+    }
+  }
+}
+
+// proguard-rules.pro
+# Keep data classes for serialization
+-keep class com.example.app.data.model.** { *; }
+-keep class com.example.app.core.network.dto.** { *; }
+
+# Keep Gson serialization fields
+-keepclassmembers class com.example.app.** {
+  @com.google.gson.annotations.SerializedName *;
+}
+
+# Keep coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Dynamic feature modules
+-keep class com.example.app.feature.** { *; }
+-keep interface com.example.app.feature.** { *; }
+
+# Remove logging in release
+-assumenosideeffects class android.util.Log {
+  public static int d(java.lang.String, java.lang.String);
+  public static int i(java.lang.String, java.lang.String);
+  public static int w(java.lang.String, java.lang.String);
+  public static int e(java.lang.String, java.lang.String);
+}
+
+# Optimize with Baseline Profiles
+-keep,allowobfuscation,allowshrinking class com.example.app.MainActivity
+-keep,allowobfuscation,allowshrinking class com.example.app.ui.**
+-keep,allowobfuscation,allowshrinking class com.example.app.di.**</pre>
+      </div>
+    </section>
+
+    <section class="glass-panel cinematic-fade" style="padding: 40px; margin-top: 32px;">
+      <h2 style="margin-bottom: 24px; color: var(--neon-aqua);">Battery & Network Efficiency</h2>
+      <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px;">
+        WorkManager for background tasks, intelligent caching strategies, and network request batching.
+      </p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">-52%</div>
+          <div class="stat-label">Background Usage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">-38%</div>
+          <div class="stat-label">Network Requests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">6h</div>
+          <div class="stat-label">Cache TTL</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">95%</div>
+          <div class="stat-label">Cache Hit Rate</div>
+        </div>
+      </div>
+
+      <div class="bench-grid" style="margin-top: 32px;">
+        <div class="bench-card glass-panel">
+          <h3 class="bench-title">🔋 Battery Optimization</h3>
+          <ul style="margin-top: 16px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+            <li>✓ WorkManager with constraints (charging, WiFi, idle)</li>
+            <li>✓ AlarmManager minimization</li>
+            <li>✓ Doze mode compatibility</li>
+            <li>✓ Background location restrictions</li>
+            <li>✓ WakeLock usage audit</li>
+          </ul>
+        </div>
+
+        <div class="bench-card glass-panel">
+          <h3 class="bench-title">🌐 Network Efficiency</h3>
+          <ul style="margin-top: 16px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+            <li>✓ OkHttp connection pooling</li>
+            <li>✓ HTTP caching with Cache-Control</li>
+            <li>✓ Request batching for analytics</li>
+            <li>✓ Gzip compression enabled</li>
+            <li>✓ Protocol Buffers for critical endpoints</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top: 32px;">
+<pre>// WorkManager configuration for battery-efficient background work
+class SyncWorker(
+  appContext: Context,
+  params: WorkerParameters
+) : CoroutineWorker(appContext, params) {
+
+  override suspend fun doWork(): Result {
+    return try {
+      val repository = getKoin().get&lt;DataRepository&gt;()
+      
+      // Batch sync operations
+      val pendingSyncs = repository.getPendingSyncItems()
+      
+      pendingSyncs.chunked(50).forEach { batch ->
+        repository.syncBatch(batch)
+        // Yield to avoid blocking main thread
+        yield()
+      }
+      
+      Result.success()
+    } catch (e: Exception) {
+      if (runAttemptCount &lt; 3) {
+        Result.retry()
+      } else {
+        Result.failure()
+      }
+    }
+  }
+}
+
+// Work configuration with constraints
+val syncWork = PeriodicWorkRequestBuilder&lt;SyncWorker&gt;(
+  repeatInterval = 6,
+  repeatIntervalTimeUnit = TimeUnit.HOURS
+)
+  .setConstraints(
+    Constraints.Builder()
+      .setRequiredNetworkType(NetworkType.CONNECTED)
+      .setRequiresBatteryNotLow(true)
+      .setRequiresCharging(false)
+      .setRequiresStorageNotLow(true)
+      .build()
+  )
+  .setBackoffCriteria(
+    BackoffPolicy.EXPONENTIAL,
+    WorkRequest.MIN_BACKOFF_MILLIS,
+    TimeUnit.MILLISECONDS
+  )
+  .build()
+
+WorkManager.getInstance(context).enqueue(syncWork)
+
+// OkHttp caching configuration
+val cache = Cache(
+  directory = context.cacheDir.resolve("http_cache"),
+  maxSize = 10 * 1024 * 1024 // 10 MB
+)
+
+val okHttpClient = OkHttpClient.Builder()
+  .cache(cache)
+  .addInterceptor { chain ->
+    val request = chain.request()
+    
+    // Force cache for 5 minutes when offline
+    val cacheControl = CacheControl.Builder()
+      .maxAge(5, TimeUnit.MINUTES)
+      .build()
+    
+    val response = chain.proceed(request)
+    
+    response.newBuilder()
+      .header("Cache-Control", cacheControl.toString())
+      .build()
+  }
+  .build()</pre>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
