@@ -9,6 +9,13 @@ const i18n = {
     architectureTitle: 'Architecture Lab',
     performanceTitle: 'Performance Benchmarks',
     cicdTitle: 'CI/CD Pipelines',
+    navHome: 'Home',
+    navSkills: 'Skills',
+    navRoadmap: 'Roadmap',
+    navCompose: 'Compose',
+    navArchitecture: 'Architecture',
+    navPerformance: 'Performance',
+    navCICD: 'CI/CD',
   },
   mm: {
     heroTitle: 'အဆင့်မြင့် မိုဘိုင်းအပ်လက်ထက်တစ်ဦး',
@@ -20,6 +27,13 @@ const i18n = {
     architectureTitle: 'တည်ဆောက်ပုံ လက်တွေ့ခန်း',
     performanceTitle: 'စွမ်းဆောင်ရည် စံနှုန်းများ',
     cicdTitle: 'CI/CD ပိုက်လိုင်းများ',
+    navHome: 'ပင်မစာမျက်နှာ',
+    navSkills: 'ကျွမ်းကျင်မှုများ',
+    navRoadmap: 'လမ်းညွှန်',
+    navCompose: 'Compose',
+    navArchitecture: 'တည်ဆောက်ပုံ',
+    navPerformance: 'စွမ်းဆောင်ရည်',
+    navCICD: 'CI/CD',
   }
 };
 
@@ -36,4 +50,11 @@ export function setLanguage(lang) {
 
 export function getLanguage() {
   return currentLang;
+}
+
+export function updatePageLanguage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    el.textContent = t(key);
+  });
 }
