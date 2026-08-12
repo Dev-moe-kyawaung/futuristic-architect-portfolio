@@ -1,14 +1,13 @@
 import { initParticles } from './particles.js';
 import { initSkillGraphs } from './skill-graphs.js';
 import { initAIExplanations } from './ai-explanations.js';
-import { t, setLanguage, getLanguage } from './utils.js';
+import { t, setLanguage, getLanguage, updatePageLanguage } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initParticles();
   initSkillGraphs();
   initAIExplanations();
 
-  // Language toggle
   const langBtn = document.getElementById('langToggle');
   if (langBtn) {
     langBtn.textContent = getLanguage() === 'en' ? '🇲🇲 MM' : '🇬🇧 EN';
@@ -16,14 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = getLanguage() === 'en' ? 'mm' : 'en';
       setLanguage(next);
       langBtn.textContent = next === 'en' ? '🇲🇲 MM' : '🇬🇧 EN';
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        el.textContent = t(key);
-      });
+      updatePageLanguage();
     });
   }
 
-  // Cinematic scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
